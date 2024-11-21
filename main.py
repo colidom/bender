@@ -1,10 +1,17 @@
 import telebot
+from bot.utils import load_token
 
-api = "6225579104:AAHyGu3zfApAUT68SyhOcOoeL8zV6SerHMQ"
-bender = telebot.TeleBot(api)
+def main():
+    """Configurar e iniciar el bot."""
+    token = load_token()
+    application = telebot.TeleBot(token)
 
-@bender.message_handler(commands = ["help", "start"])
-def send_message(message):
-    bender.reply_to(message, "Hi there!")
+    @application.message_handler(commands=["hola", "start"])
+    def send_message(message):
+        application.reply_to(message, "Hi there!")
 
-bender.polling()
+    print("Corriendo Bot... Presiona Ctrl+C para detenerlo.")
+    application.polling()
+
+if __name__ == "__main__":
+    main()
