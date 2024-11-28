@@ -1,14 +1,13 @@
 import telebot
 from bot.utils import load_token
+from bot.handlers import register_handlers
 
 def main():
     """Configurar e iniciar el bot."""
     token = load_token()
     application = telebot.TeleBot(token)
 
-    @application.message_handler(commands=["hola", "start"])
-    def send_message(message):
-        application.reply_to(message, "Hi there!")
+    register_handlers(application)
 
     print("Corriendo Bot... Presiona Ctrl+C para detenerlo.")
     application.polling()
